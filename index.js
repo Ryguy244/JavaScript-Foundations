@@ -34,21 +34,32 @@ let numer = monthlyInterestRate * numPow;
 let denom =  denomPow - 1 ;
 let quotient = numer / denom;
 let monthlyRate = principle*quotient;
-console.log (principle [monthlyInterestRate * numPow ] / [ denomPow - 1 ])
+// console.log (monthlyRate)
 
 // 🏡 Task 3: Function
 /* Create a function called `mortgageCalculator` that combines all of the steps from task 1 and 2 and returns a sentence "{Name}, your monthly rate is ${monthlyRate}"
 
 If your name is `Oscar` mortgageCalculator() should return "Oscar, your monthly rate is 1073.64"
 */
-function mortgageCalculator( name, monthlyRate ) {
-    console.log('${name}, your monthly rate is ${monthlyRate}' );
-}
-mortgageCalculator( "Ryan");
+function mortgageCalculator () {
+    let principle = 200000;
+    let interestRate = 0.05;
+    let years = 30;
+    let name = 'Ryan';
 
-function myCalc() {
-    (principle [monthlyInterestRate * numPow ] / [ denomPow - 1 ]);
+    let monthlyInterestRate = (interestRate/12);
+    let periods = (years*12);
+
+    let numPow = Math.pow([1+monthlyInterestRate], periods);
+    let denomPow = Math.pow([monthlyInterestRate+1], periods);
+
+    // let monthlyRate = principle*((monthlyInterestRate * numPow) / (denomPow - 1))
+    
+    let monthlyRate = principle*((monthlyInterestRate * (Math.pow([1+monthlyInterestRate], periods))) / ((Math.pow([monthlyInterestRate+1], periods)) - 1))
+
+    return (name + ', your monthly rate is '+ monthlyRate);
 }
+console.log(mortgageCalculator());
 
 
 // 🏡 Task 4: Arguments and Parameters
@@ -57,7 +68,23 @@ function myCalc() {
 For example,
 mortgageCalculator(200000, 0.05, 30); <-- should return 1,073.64
 */
+// function mortgageCalculator (P, I, N) {
+//     let principle = P;
+//     let interestRate = I;
+//     let years = N;
+//     let name = 'Ryan';
 
+//     let monthlyInterestRate = (interestRate/12);
+//     let periods = (years*12);
+
+//     let numPow = Math.pow([1+monthlyInterestRate], periods);
+//     let denomPow = Math.pow([monthlyInterestRate+1], periods);
+
+//     let monthlyRate = principle*((monthlyInterestRate * numPow) / (denomPow - 1))
+    
+//     return (name + ', your monthly rate is '+ monthlyRate);
+// }
+// console.log(mortgageCalculator(200000, .05, 30));
 
 
 
