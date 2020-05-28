@@ -41,24 +41,24 @@ let monthlyRate = principle*quotient;
 
 If your name is `Oscar` mortgageCalculator() should return "Oscar, your monthly rate is 1073.64"
 */
-function mortgageCalculator () {
-    let principle = 200000;
-    let interestRate = 0.05;
-    let years = 30;
-    let name = 'Ryan';
+// function mortgageCalculator () {
+//     let principle = 200000;
+//     let interestRate = 0.05;
+//     let years = 30;
+//     let name = 'Ryan';
 
-    let monthlyInterestRate = (interestRate/12);
-    let periods = (years*12);
+//     let monthlyInterestRate = (interestRate/12);
+//     let periods = (years*12);
 
-    let numPow = Math.pow([1+monthlyInterestRate], periods);
-    let denomPow = Math.pow([monthlyInterestRate+1], periods);
+//     let numPow = Math.pow([1+monthlyInterestRate], periods);
+//     let denomPow = Math.pow([monthlyInterestRate+1], periods);
 
-    // let monthlyRate = principle*((monthlyInterestRate * numPow) / (denomPow - 1))
+//     let monthlyRate = principle*((monthlyInterestRate * numPow) / (denomPow - 1))
     
-    let monthlyRate = principle*((monthlyInterestRate * (Math.pow([1+monthlyInterestRate], periods))) / ((Math.pow([monthlyInterestRate+1], periods)) - 1))
+//     let monthlyRate = principle*((monthlyInterestRate * (Math.pow([1+monthlyInterestRate], periods))) / ((Math.pow([monthlyInterestRate+1], periods)) - 1))
 
-    return (name + ', your monthly rate is $'+ monthlyRate);
-}
+//     return (name + ', your monthly rate is $'+ monthlyRate);
+// }
 // console.log(mortgageCalculator());
 
 
@@ -68,23 +68,23 @@ function mortgageCalculator () {
 For example,
 mortgageCalculator(200000, 0.05, 30); <-- should return 1,073.64
 */
-function mortgageCalculator (P, I, N) {
-    let principle = P;
-    let interestRate = I;
-    let years = N;
-    let name = 'Ryan';
+// function mortgageCalculator (P, I, N) {
+//     let principle = P;
+//     let interestRate = I;
+//     let years = N;
+//     let name = 'Ryan';
 
-    let monthlyInterestRate = (interestRate/12);
-    let periods = (years*12);
+//     let monthlyInterestRate = (interestRate/12);
+//     let periods = (years*12);
 
-    let numPow = Math.pow([1+monthlyInterestRate], periods);
-    let denomPow = Math.pow([monthlyInterestRate+1], periods);
+//     let numPow = Math.pow([1+monthlyInterestRate], periods);
+//     let denomPow = Math.pow([monthlyInterestRate+1], periods);
 
-    let monthlyRate = principle*((monthlyInterestRate * numPow) / (denomPow - 1))
+//     let monthlyRate = principle*((monthlyInterestRate * numPow) / (denomPow - 1))
     
-    return (name + ', your monthly rate is $'+ monthlyRate);
-}
-// console.log(mortgageCalculator(200000, .05, 30));
+//     return (name + ', your monthly rate is $'+ monthlyRate);
+// }
+// // console.log(mortgageCalculator(200000, .05, 30));
 
 
 
@@ -94,31 +94,31 @@ function mortgageCalculator (P, I, N) {
 
 Then, add control flow within your function such that IF creditScore is above 740, interest rate drops by 0.5%, if credit score is below 660, interest rate increases by 0.5% and if credit score is anywhere between 660 and 740 interest rate doesn't change.
 */
-function mortgageCalculator (P, I, C, N) {
-    let name = 'Ryan';
-    let creditScore = C;
-    if (740 > C) {
-        creditScoreMultiplier = 0.995;
-    } else if (660 < C < 740) {
-        creditScoreMultiplier=  1 ;
-    } else if (0 < C <= 660) {
-        creditScoreMultiplier = 1.005;
+function mortgageCalculator (P, I, N, creditScore) {
+    let interestRate = I;
+    let adjustedInterest = interestRate;
+
+    if (740 < creditScore) {
+        adjustedInterest = interestRate - .005;
+    } else if (660 < creditScore && creditScore < 740) {
+        adjustedInterest = interestRate;
+    } else if (0 < creditScore && creditScore < 660) {
+        adjustedInterest = interestRate + .005;
     } else {
-        return console.error();    
     }
     
-    let monthlyInterestRate = ( I * creditScoreMultiplier / 12);
-  
+    let monthlyInterestRate = adjustedInterest / 12;
     let periods = (N*12);
     let numPow = Math.pow([1+monthlyInterestRate], periods);
-    let denomPow = Math.pow([monthlyInterestRate+1], periods);
-
-    let monthlyRate = P*((monthlyInterestRate * numPow) / (denomPow - 1))
+    let denomPow = Math.pow([monthlyInterestRate+1], periods); 
+    let numer = monthlyInterestRate * numPow;
+    let denom =  denomPow - 1 ;
+    let quotient = numer / denom;
+    let monthlyRate = principle*quotient;
     
-    return (name + ', your monthly rate is $'+ monthlyRate);
+    return (name + ',with an interest rate of ' + I + ', your monthly rate is $'+ monthlyRate);
 }
-console.log(mortgageCalculator(200000, .05, 400, 30));
-
+console.log(mortgageCalculator(200000, .05, 30, 770));
 
 
 // 🏡 Task 6: Loops
@@ -136,7 +136,17 @@ For example, variableInterestRate(200000, 0.04, 30) should console.log:
 "{Name}, with an interest rate of 0.055, your monthly rate is $1136"
 "{Name}, with an interest rate of 0.06, your monthly rate is $1199"
 */
-
+  
+  const variableInterestRate = (P, interest, N, creditScore) => {
+    let minimum = interest - 0.02
+    let maximum = interest + 0.02
+    for(let i = minimum; i <= maximum; i += .005 ) {
+      let tenPack = mortgageCalculator(P, i, N, creditScore)
+      console.log(tenPack)
+    }
+  }
+  
+  variableInterestRate(200000, .05, 30, 200)
 
 
 
